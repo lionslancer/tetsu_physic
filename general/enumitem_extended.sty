@@ -1,4 +1,11 @@
-\NeedsTeXFormat{pLaTeX2e}
+\usepackage{iftex}
+\ifluatex
+	\usepackage{luatexja-otf}
+\else
+	\NeedsTeXFormat{pLaTeX2e}
+	\usepackage{otf}
+\fi
+
 \ProvidesPackage{enumitem_extended}
 % \PackageInfo{enumitem_extended}{availabel global options: \MessageBreak
 % [ideographic]}
@@ -11,7 +18,7 @@
 \@ifundefined{DeclareFontSeriesChangeRule}{\relax}%
 {\DeclareFontSeriesChangeRule {m}{b}  {bx}  {bx}} % undefined @ texlive 2018
 
-\usepackage{otf}
+\usepackage{alphalph}
 \usepackage{enumitem}
 \usepackage{Wdate}
 \RequirePackage{ifthen}
@@ -188,7 +195,7 @@
 \or あ\or さ\or き\or ゆ\or め\or み\or し\or ゑ\or ひ\or も\or せ\or す%
 \or ん\else\@ctrerr\fi\relax}
 
-\def\@iKata#1{\ifcase#1\or イ\or ロ\or ハ\or ニ\or ホ\or ヘ\or ト%
+\def\@single@iKata#1{\ifcase#1\or イ\or ロ\or ハ\or ニ\or ホ\or ヘ\or ト%
 \or チ\or リ\or ヌ\or ル\or ヲ\or ワ\or カ\or ヨ%
 \or タ\or レ\or ソ\or ツ\or ネ\or ナ\or ラ\or ム%
 \or ウ\or ヰ\or ノ\or オ\or ク\or ヤ\or マ%
@@ -564,6 +571,7 @@
 \def\iHira#1{\expandafter\@iHira\csname c@#1\endcsname}
 \AddEnumerateCounter{\iHira}{\@iHira}{\@iHira{1}}
 
+\newalphalph{\@iKata}[alph]{\@single@iKata}{48}
 \def\iKata#1{\expandafter\@iKata\csname c@#1\endcsname}
 \AddEnumerateCounter{\iKata}{\@iKata}{\@iKata{1}}
 
